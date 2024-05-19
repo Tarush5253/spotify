@@ -163,7 +163,7 @@ a {
     align-items: center;
     padding: 1rem 0;
     z-index: 10;
-
+    width: 101%;
 }
 
 .sticky-nav-icon {
@@ -231,10 +231,25 @@ a {
     margin-left: 1.5rem;
     margin-top: 1rem;
 }
-
+@media (max-width:480px) {
+    .card{
+        margin-left: 0.5rem;
+    }
+    
+}
 .card-container {
     display: flex;
     flex-wrap: wrap;
+}
+@media (max-width:452px) {
+    .card-container{
+        margin: -0.5rem;
+    }
+}
+@media (max-width:428px) {
+    .card{
+        padding: 0.5rem;
+    }
 }
 
 .card img {
