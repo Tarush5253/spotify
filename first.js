@@ -10,6 +10,7 @@ let hamb_2 = document.querySelector(".hamb2");
 let side_bar = document.querySelector(".sidebar");
 let music = document.querySelector(".full-music-btn");
 let full_music = document.querySelector(".full-music");
+let currentSong = new Audio();
 
 home.addEventListener("click", function () {
     main_home.classList.add("display");
@@ -77,8 +78,67 @@ music.addEventListener("click", function () {
 
 // }
 
+async function getSongs() {
+    const data = await fetch("http://127.0.0.1:5500/songs/");
+    const result = await data.text();
+    let div = document.createElement("a");
+    div.innerHTML = result;
+    let as = div.getElementsByTagName("a");
+    let songs = [];
+    for (let index = 0; index < as.length; index++) {
+        const element = as[index];
+        if (element.href.endsWith(".mp3") || element.href.endsWith(".m4a")) {
+            songs.push(element.href.split("/songs/")[1]);
+        }
+    }
+    return songs
+}
+let songs;
 
 
+function playMusic(track){
+    currentSong.src = "/songs/" + track;
+    currentSong.play();
+}
+
+async function main() {
+    //get the list of all songs
+    songs = await getSongs();
+
+    // show all the song in the playlist
+    let songDiv = document.querySelector(".songs-container").getElementsByTagName("ul")[0];
+    for (const song of songs) {
+        songDiv.innerHTML = songDiv.innerHTML + `
+        <li>
+                            <img src="./assets/musical-notes.svg">
+                            <div class="info">
+                                <div class="title">${song.replaceAll("%20", " ")}</div>
+                                <div class="artist">tarush</div>
+                            </div>
+                            <img src="./assets/player_icon3.png">
+        </li>`;
+    }
+    //attach an eventlistener to each song
+    Array.from(document.querySelector(".songs-container").getElementsByTagName("li")).forEach(e=>{
+        e.addEventListener("click",element=>{
+            console.log(e.querySelector(".info").firstElementChild.innerHTML);
+            playMusic(e.querySelector(".info").firstElementChild.innerHTML.trim());
+        })
+    });
+
+}
+main();
+// btn.addEventListener("click", function () {
+//     //play the first song 
+//     var audio = new Audio(songs[8]);
+//     audio.play();
+
+//     audio.addEventListener("loadeddata", () => {
+//         let duration = audio.duration;
+//         console.log(audio.duration, audio.currentSrc, audio.currentTime);
+//         // The duration variable now holds the duration (in seconds) of the audio clip
+//     });
+// });
 
 
 

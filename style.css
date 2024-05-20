@@ -90,7 +90,7 @@ a {
     border-radius: 1rem;
     margin: 0.5rem 0;
     height: 100%;
-    padding: 0.5rem 0.75rem;
+    padding: 0.5rem 0.75rem 0.5rem 0rem;
 }
 
 .lib-option img {
@@ -190,17 +190,21 @@ a {
 
 .hamb {
     display: none;
-    height: 2.5rem;
+    height: 2.2rem;
+    padding: 2px 6px;
     margin-top: 0.5rem;
-    background-color: #ddd;
+    background-color: white;
     border-radius: 0.5rem;
+    filter: invert();
 }
 
 .hamb2 {
     display: none;
-    height: 2.5rem;
-    background-color: #ddd;
+    height: 2.2rem;
+    padding: 2px 6px;
+    background-color: white;
     border-radius: 0.5rem;
+    filter: invert();
 }
 
 @media (max-width:1000px) {
@@ -414,23 +418,32 @@ a {
 }
 
 .songs-container{
-    height: 50vh;
+    height: 55vh;
     overflow: auto;
+
 }
-.song{
+.songs-container::-webkit-scrollbar {
+    display: none;
+}
+
+.songs-container ul li{
     display: flex;
     justify-content: space-between;
     border: 2px solid #ddd;
-    padding: 0.4rem;
-    margin: 2px 15px;
+    padding: 0.7rem;
+    margin: 10px 2px;
     align-items: center;
     border-radius: 7px;
+    cursor: pointer;
+    list-style-type: decimal;
+    background-color: #232323;
 }
-.song img{
-    height: 2rem;
+
+li img{
+    height: 1.75rem;
 }
 .info{
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 65%;
 }
