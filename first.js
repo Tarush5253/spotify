@@ -36,44 +36,49 @@ hamb_2.addEventListener("click", function () {
     main_search.classList.add("chupja");
 });
 
-music.addEventListener("click",function(){
+music.addEventListener("click", function () {
     full_music.classList.toggle("dhikhja");
 });
-const tracks = async () => {
-    // window.location.reload();
-    let data = await fetch(`https://v1.nocodeapi.com/tarush/spotify/ErcPzpuzgqDpQerL/search?q=${inp.value}&type=track`);
-    let cnvrtData = await data.json();
+// const tracks = async () => {
+//     // window.location.reload();
+//     let data = await fetch(`https://v1.nocodeapi.com/tarush/spotify/ErcPzpuzgqDpQerL/search?q=${inp.value}&type=track`);
+//     let cnvrtData = await data.json();
 
 
-    for (let i = 0; i < 20; i++) {
+//     for (let i = 0; i < 20; i++) {
 
-        // console.log(cnvrtData.tracks.items[i]);
+//         // console.log(cnvrtData.tracks.items[i]);
 
-        src = cnvrtData.tracks.items[i].album.images[1].url;
+//         src = cnvrtData.tracks.items[i].album.images[1].url;
 
-        let card = document.createElement("div");
+//         let card = document.createElement("div");
 
-        card.setAttribute('class', 'card');
+//         card.setAttribute('class', 'card');
 
-        let img = document.createElement("img");
+//         let img = document.createElement("img");
 
-        let song = document.createElement("p");
+//         let song = document.createElement("p");
 
-        let audio = document.createElement("audio");
+//         let audio = document.createElement("audio");
 
-        audio.src = cnvrtData.tracks.items[i].preview_url;
+//         audio.src = cnvrtData.tracks.items[i].preview_url;
 
-        audio.controls = true;
+//         audio.controls = true;
 
-        song.innerHTML = `<b>${cnvrtData.tracks.items[i].album.name} <b/><br> artist : ${cnvrtData.tracks.items[i].artists[0].name} <br> release date: ${cnvrtData.tracks.items[i].album.release_date}`;
+//         song.innerHTML = `<b>${cnvrtData.tracks.items[i].album.name} <b/><br> artist : ${cnvrtData.tracks.items[i].artists[0].name} <br> release date: ${cnvrtData.tracks.items[i].album.release_date}`;
 
-        img.src = src;
+//         img.src = src;
 
-        card.appendChild(img);
-        card.appendChild(song);
-        card.appendChild(audio);
-        container.appendChild(card);
-    }
+//         card.appendChild(img);
+//         card.appendChild(song);
+//         card.appendChild(audio);
+//         container.appendChild(card);
+//     }
 
-}
+// }
+
+
+
+
+
 

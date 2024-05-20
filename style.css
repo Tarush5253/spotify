@@ -412,3 +412,25 @@ a {
 .down_icon{
     background-color: #ddd;
 }
+
+.songs-container{
+    height: 50vh;
+    overflow: auto;
+}
+.song{
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid #ddd;
+    padding: 0.4rem;
+    margin: 2px 15px;
+    align-items: center;
+    border-radius: 7px;
+}
+.song img{
+    height: 2rem;
+}
+.info{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
