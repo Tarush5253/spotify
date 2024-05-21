@@ -14,6 +14,10 @@ let currentSong = new Audio();
 let play = document.querySelector(".play");
 
 function convertSecondsToMinutes(seconds) {
+    if (typeof seconds !== 'number' || Number.isNaN(seconds)) {
+        return '00:00';
+    }
+
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = Math.floor(seconds % 60);
     return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
@@ -171,16 +175,22 @@ async function main() {
     document.querySelector(".progress-bar").addEventListener("input", (e)=>{
         console.log(e);
     });
+    //add event listener to previous song
+    document.querySelector(".previous").addEventListener("click",function(){
+        let index = songs.indexOf(currentSong.src.split("/").slice(-1) [0]);
+         if((index-1) >= 0){
+            currentSong.pause();
+            playMusic(songs[index-1]);
+         };
+    });
+    //add event listener to next song
+    document.querySelector(".next").addEventListener("click",function(){
+        let index = songs.indexOf(currentSong.src.split("/").slice(-1) [0]);
+         if((index+1) < songs.length){
+            currentSong.pause();
+            playMusic(songs[index+1]);
+         };
+    });
+
 }
 main();
-// btn.addEventListener("click", function () {
-//     //play the first song 
-//     var audio = new Audio(songs[8]);
-//     audio.play();
-
-//     audio.addEventListener("loadeddata", () => {
-//         let duration = audio.duration;
-//         console.log(audio.duration, audio.currentSrc, audio.currentTime);
-//         // The duration variable now holds the duration (in seconds) of the audio clip
-//     });
-// });

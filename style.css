@@ -163,7 +163,7 @@ a {
     align-items: center;
     padding: 1rem 0;
     z-index: 10;
-    width: 101%;
+    width: 100%;
 }
 
 .sticky-nav-icon {
@@ -453,3 +453,19 @@ li img{
     flex-direction: column;
     width: 65%;
 }
+.controls{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+.vol{
+    height: 3.5rem;
+}
+/* @media (max-width : 794px){
+    .music-player{
+        flex-direction: column-reverse;
+        overflow-y: auto;
+        align-items: last baseline;
+    }
+} */
