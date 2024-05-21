@@ -11,6 +11,13 @@ let side_bar = document.querySelector(".sidebar");
 let music = document.querySelector(".full-music-btn");
 let full_music = document.querySelector(".full-music");
 let currentSong = new Audio();
+let play = document.querySelector(".play");
+
+function convertSecondsToMinutes(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+}
 
 home.addEventListener("click", function () {
     main_home.classList.add("display");
@@ -79,7 +86,7 @@ music.addEventListener("click", function () {
 // }
 
 async function getSongs() {
-    const data = await fetch("http://127.0.0.1:5500/songs/");
+    const data = await fetch("/songs/");
     const result = await data.text();
     let div = document.createElement("a");
     div.innerHTML = result;
@@ -96,14 +103,25 @@ async function getSongs() {
 let songs;
 
 
-function playMusic(track){
+function playMusic(track , pause = false){
     currentSong.src = "/songs/" + track;
-    currentSong.play();
+    if(!pause){
+        currentSong.play();
+        play.src = "/assets/pause.svg";
+        play.classList.add("invert");
+        play.style.height = "2.5rem";
+        play.style.border = "0px solid black";    
+    }
+    document.querySelector(".album").innerHTML = decodeURI(track);
+    document.querySelector(".curr-time").innerHTML="00:00";
+    document.querySelector(".tot-time").innerHTML="00:00";
+    
 }
 
 async function main() {
     //get the list of all songs
     songs = await getSongs();
+    playMusic(songs[0] , true);
 
     // show all the song in the playlist
     let songDiv = document.querySelector(".songs-container").getElementsByTagName("ul")[0];
@@ -125,7 +143,34 @@ async function main() {
             playMusic(e.querySelector(".info").firstElementChild.innerHTML.trim());
         })
     });
+    // attach an event listener to play , next and previous
+    play.addEventListener("click",function(){
+        if(currentSong.paused){
+            currentSong.play();
+            play.src = "/assets/pause.svg";
+            play.classList.add("invert");
+            play.style.height = "2.5rem";
+            play.style.border = "0px solid black";
 
+        }else{
+            currentSong.pause();
+            play.src = "/assets/player_icon3.png";
+            play.classList.remove("invert");
+            play.style.height = "2rem";
+            play.style.border = "5px solid black";
+        }
+    });
+    // listen for timeupdate event
+    currentSong.addEventListener("timeupdate",()=>{
+        document.querySelector(".curr-time").innerHTML=`${convertSecondsToMinutes(currentSong.currentTime)}`;
+        document.querySelector(".tot-time").innerHTML=`${convertSecondsToMinutes(currentSong.duration)}`;
+
+        document.querySelector(".progress-bar").value = (currentSong.currentTime / currentSong.duration)*100;
+    });
+    //listen for progressbar event
+    document.querySelector(".progress-bar").addEventListener("input", (e)=>{
+        console.log(e);
+    });
 }
 main();
 // btn.addEventListener("click", function () {
@@ -139,6 +184,3 @@ main();
 //         // The duration variable now holds the duration (in seconds) of the audio clip
 //     });
 // });
-
-
-
