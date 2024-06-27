@@ -139,7 +139,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     });
 
-});
     // listen for timeupdate event
     currentSong.addEventListener("timeupdate",()=>{
         document.querySelector(".curr-time").innerHTML=`${convertSecondsToMinutes(currentSong.currentTime)}`;
