@@ -12,7 +12,7 @@ let music = document.querySelector(".full-music-btn");
 let currentSong = new Audio();
 let play = document.querySelector(".play");
 const volumeSlider = document.getElementById('volumeSlider');
-// const navPlay = document.querySelectorAll('.nav-play');
+
 
 function convertSecondsToMinutes(seconds) {
     if (typeof seconds !== 'number' || Number.isNaN(seconds)) {
@@ -53,23 +53,24 @@ hamb_2.addEventListener("click", function () {
 
 
 
-function playMusic(track , pause = false){
-    currentSong.src = "/songs/" + track;
-    if(!pause){
-        currentSong.play();
-        play.src = "/assets/pause.svg";
-        play.classList.add("invert");
-        play.style.height = "2.5rem";
-        play.style.border = "0px solid black";    
-    }
-    document.querySelector(".album").innerHTML = track;
-    document.querySelector(".curr-time").innerHTML="00:00";
-    document.querySelector(".tot-time").innerHTML="00:00";
+// function playMusic(track , pause = false){
+//     currentSong.src = "/songs/" + track;
+//     if(!pause){
+//         currentSong.play();
+//         play.src = "/assets/pause.svg";
+//         play.classList.add("invert");
+//         play.style.height = "2.5rem";
+//         play.style.border = "0px solid black";    
+//     }
+//     document.querySelector(".album").innerHTML = track;
+//     document.querySelector(".curr-time").innerHTML="00:00";
+//     document.querySelector(".tot-time").innerHTML="00:00";
     
-}
+// }
 
 
 document.addEventListener('DOMContentLoaded', (event) => {
+
     const songs = [
         'blue eyes.m4a',
         'Owls - Lish Grooves.mp3',
@@ -81,23 +82,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         // Add more song file names here
     ];
 
-    function playMusic(track , pause = false){
-        currentSong.src = "/songs/" + track;
-        if(!pause){
-            currentSong.play();
-            play.src = "/assets/pause.svg";
-            play.classList.add("invert");
-            play.style.height = "2.5rem";
-            play.style.border = "0px solid black";    
-        }
-        document.querySelector(".album").innerHTML = decodeURI(track);
-        document.querySelector(".curr-time").innerHTML="00:00";
-        document.querySelector(".tot-time").innerHTML="00:00";
-        
-    }
 
-
-    playMusic(songs[0] , true);
 
     // show all the song in the playlist
     let songDiv = document.querySelector(".songs-container").getElementsByTagName("ul")[0];
@@ -112,10 +97,40 @@ document.addEventListener('DOMContentLoaded', (event) => {
         </li>`;
     } 
 
+    function pausee(){
+        songDiv.querySelectorAll('li').forEach(e=>{
+            e.querySelector('.info').nextElementSibling.src = "./assets/player_icon3.png"
+            e.querySelector('.info').nextElementSibling.classList.remove("invert");
+            e.querySelector(".info").nextElementSibling.style.height = "1.8rem";
+        });
+    }
+
+    function playMusic(track , pause = false){
+        currentSong.src = "/songs/" + track;
+        if(!pause){
+            currentSong.play();
+            play.src = "/assets/pause.svg";
+            play.classList.add("invert");
+            play.style.height = "2.5rem";
+            play.style.border = "0px solid black";  
+
+        }
+        document.querySelector(".album").innerHTML = decodeURI(track);
+        document.querySelector(".curr-time").innerHTML="00:00";
+        document.querySelector(".tot-time").innerHTML="00:00";
+    
+        
+    }
+
+
+    playMusic(songs[0] , true);
     //attach an eventlistener to each song
     Array.from(document.querySelector(".songs-container").getElementsByTagName("li")).forEach(e=>{
         e.addEventListener("click",element=>{
-            console.log(e.querySelector(".info").firstElementChild.innerHTML);
+            pausee();
+            e.querySelector(".info").nextElementSibling.src = "/assets/pause.svg";
+            e.querySelector(".info").nextElementSibling.classList.add("invert");
+            e.querySelector(".info").nextElementSibling.style.height = "2.05rem";   
             playMusic(e.querySelector(".info").firstElementChild.innerHTML.trim());
         })
     });
@@ -136,9 +151,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
             play.classList.remove("invert");
             play.style.height = "2rem";
             play.style.border = "5px solid black";
+            pausee();
         }
     });
 
+//     navPlay.forEach(e=>{
+//         e.addEventListener("click",(element)=>{
+//         console.log(element.target);
+//     });
+// });
     // listen for timeupdate event
     currentSong.addEventListener("timeupdate",()=>{
         document.querySelector(".curr-time").innerHTML=`${convertSecondsToMinutes(currentSong.currentTime)}`;
@@ -170,5 +191,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
     volumeSlider.addEventListener('input', (e) => {
         currentSong.volume = e.target.value;
     });
-
+    
 });
