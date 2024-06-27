@@ -227,6 +227,7 @@ a {
     }
 }
 
+
 .card {
     background-color: #232323;
     width: 150px;
@@ -402,23 +403,13 @@ a {
 
 }
 
+.dhikhja{
+    display:flex ;
+}
 .chupja {
     display: none;
 }
 
-.full-music{
-    width: 100vw;
-    height: 100vh;
-    z-index: 15;
-    background-color: #000;
-    display: flex;
-    position: fixed;
-    top: 0;
-    display: none;
-}
-.dhikhja{
-    display:flex ;
-}
 .down_icon{
     background-color: #ddd;
 }
@@ -462,10 +453,23 @@ li img{
 .vol{
     height: 3.5rem;
 }
-/* @media (max-width : 794px){
+@media (max-width : 624px){
     .music-player{
-        flex-direction: column-reverse;
-        overflow-y: auto;
-        align-items: last baseline;
+        height: 30vh;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-left: -15px;
     }
-} */
+    .player{
+        width: 100%;
+    }
+    .album{
+        width: 100%;
+        padding-bottom: 5px;
+        text-align: center;
+    }
+    .controls{
+        width: 100%;
+    }
+}
