@@ -90,7 +90,7 @@ music.addEventListener("click", function () {
 // }
 
 async function getSongs() {
-    const data = await fetch("/songs/");
+    const data = await fetch("./songs/");
     const result = await data.text();
     let div = document.createElement("a");
     div.innerHTML = result;
